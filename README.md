@@ -3,4 +3,7 @@ TODO
 
 ### A TODO app for firefox OS
 
-What else needs to be said...
+Just a very simple TODO app created to learn native-looking FFOS apps development.
+
+If you just want to use it, you can also get it from http://todo.etenil.net
+
