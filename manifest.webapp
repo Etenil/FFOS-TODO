@@ -1,18 +1,21 @@
 {
-  "version": "0.0.01",
+  "version": "0.0.02",
   "name": "TODO",
-  "launch_path": "todoapp/index.html",
+  "launch_path": "index.html",
   "description": "A simple TODO app.",
   "icons": {
     "16": "/applogos/logo16.png",
+    "30": "/applogos/logo30.png",
     "32": "/applogos/logo32.png",
     "48": "/applogos/logo48.png",
+    "60": "/applogos/logo60.png",
     "64": "/applogos/logo64.png",
-    "128": "/applogos/logo128.png"
+    "128": "/applogos/logo128.png",
+    "256": "/applogos/logo256.png"
   },
   "developer": {
     "name": "Guillaume Pasquet",
-    "url": "http://etenil.net"
+    "url": "http://todo.etenil.net"
   },
   "installs_allowed_from": ["*"],
   "default_locale": "en"
