@@ -15,7 +15,7 @@
 <body>
     <div class="frame" id="mainFrame">
         <header>
-            <ul id="install-add">
+            <ul class="actions">
                 <li class="install"><button id="btnInstall">Install</button></li>
                 <li><button id="btnAdd"></button></li>
             </ul>
@@ -43,16 +43,16 @@
     <div class="frame" id="addItemFrame">
         <header>
             <button id="btnMain"></button> 
-            <ul id="install-add">
+            <ul class="actions">
+              <li><button id="addItem"></button></li>
             </ul>
             <h1>Add a TODO item</h1>
         </header>
 
         <div id="itemForm" class="body">
             <div class="textEntry">
-                <textarea id="newItem" placeholder="TODO..."></textarea>
+                <textarea id="newItem" placeholder="Enter your item description"></textarea>
             </div>
-            <button id="addItem">Add</button>
         </div>
     </div>
 
