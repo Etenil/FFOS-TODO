@@ -24,6 +24,7 @@ div.frame.overlay {
     display: block;
     text-align: center;
     display: none;
+    font-size: 1.5rem;
 }
 
 div.frame.overlay div.message {
@@ -40,6 +41,10 @@ div.frame.overlay .buttons {
     width: 100%;
     bottom: 2rem;
     left: 0;
+}
+
+div.frame.overlay .buttons button {
+    font-size: 1.3rem;
 }
 
 div.frame.overlay button#closeoverlay {
