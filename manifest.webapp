@@ -1,7 +1,7 @@
 {
   "version": "0.0.03",
   "name": "TODO",
-  "launch_path": "index.html",
+  "launch_path": "/index.html",
   "description": "A simple TODO app.",
   "icons": {
     "16": "/applogos/logo16.png",
