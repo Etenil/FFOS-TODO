@@ -4,16 +4,26 @@ var store = null;
  * Refreshes the items in the todo list.
  */
 function refreshItems() {
-    // Wiping all demo items.
-    $('#itemsList .list').html('');
     // Loading storage items.
     var items = store.getAllItems(true);
-    for(var key in items) {
-        var item = items[key];
-        $('#itemsList .list').append('<li id="' + item.id + '"class="item">'
-            + '<button id="'+ item.id +'" class="btnDelItem"></button>'
-            + '<p>' + item.value + '</p>'
-            + '</li>');
+    if(items.length > 0) {
+        // Wiping all demo items.
+        $('#itemsList .list').html('');
+        for(var key in items) {
+            var item = items[key];
+            $('#itemsList .list').append(
+                '<li id="' + item.id + '"class="item">'
+                    + '<button id="'+ item.id +'" class="btnDelItem"></button>'
+                    + '<p>' + item.value + '</p>'
+                    + '</li>');
+        }
+    } else {
+       $('#itemsList .list').html(
+                '<li class="item">'
+              + '   <p>'
+              + '     Press the <strong>+</strong> button to add a TODO item.'
+              + '   </p>'
+              + '</li>');
     }
 }
 
@@ -35,11 +45,6 @@ $(document).ready(function() {
 
     refreshItems();
 
-    // An item was clicked.
-    $('#itemsList .item').live('click', function(e) {
-        console.log("Item '"+$(this).attr('id')+"' was clicked.");
-    });
-
     // The add button was clicked.
     $('#btnAdd').click(function(e) {
         $('#mainFrame').hide();
@@ -54,12 +59,17 @@ $(document).ready(function() {
 
     // Adds a new item.
     $('#addItem').click(function(e) {
-        store.addItem($('#newItem').val());
-        $('#newItem').val('');
-        // Note that the items are refreshed while the form is shown.
-        refreshItems();
-        $('#addItemFrame').hide();
-        $('#mainFrame').show();
+        var val = $('#newItem').val();
+        if($('#newItem').val().trim() != "") {
+            store.addItem($('#newItem').val());
+            $('#newItem').val('');
+            // Note that the items are refreshed while the form is shown.
+            refreshItems();
+            $('#addItemFrame').hide();
+            $('#mainFrame').show();
+        } else {
+            overlayMsg("No TODO description entered.");
+        }
     });
 
     // Deletes an item.

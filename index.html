@@ -9,10 +9,17 @@
    <script type="text/javascript" src="js/zepto.touch.js"></script>
    <script type="text/javascript" src="js/install.js"></script>
    <script type="text/javascript" src="js/itemsstore.js"></script>
+   <script type="text/javascript" src="js/base.js"></script>
    <script type="text/javascript" src="js/app.js"></script>
    <title>Todo</title>
 </head>
 <body>
+    <div class="frame overlay">
+        <div class="message">Error message</div>
+        <div class="buttons">
+            <button id="closeoverlay">Dismiss</button>
+        </div>
+	</div>
     <div class="frame" id="mainFrame">
         <header>
             <ul class="actions">
@@ -24,16 +31,9 @@
 
         <div id="itemsList" class="body">
             <ul class="list">
-                <li id="1" class="item">
-                    <button id="1" class="btnDelItem"></button>
+                <li class="item">
                     <p>
-                        First item
-                    </p>
-                </li>
-                <li id="1" class="item">
-                    <button id="1" class="btnDelItem"></button>
-                    <p>
-                        Other item
+                      Press the <strong>+</strong> button to add a TODO item.
                     </p>
                 </li>
             </ul>
@@ -44,7 +44,7 @@
         <header>
             <button id="btnMain"></button> 
             <ul class="actions">
-              <li><button id="addItem"></button></li>
+              <li><button id="addItem">Save</button></li>
             </ul>
             <h1>Add a TODO item</h1>
         </header>

@@ -13,6 +13,53 @@ div.frame {
     margin: 0;
 }
 
+div.frame.overlay {
+    background-color: rgba(0,0,0,0.7);
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    text-align: center;
+    display: none;
+}
+
+div.frame.overlay div.message {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    margin-left: -50%;
+    color: #fff;
+}
+
+div.frame.overlay .buttons {
+    position: absolute;
+    width: 100%;
+    bottom: 2rem;
+    left: 0;
+}
+
+div.frame.overlay button#closeoverlay {
+    height: 3rem;
+    width: 75%;
+    min-width: 5rem;
+    max-width: 20rem;
+    background-image: linear-gradient(rgb(0, 149, 221), rgb(0, 83, 159));
+    border: none;
+    border-radius: 1rem;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+}
+
+div.frame.overlay button#closeoverlay:active {
+    background-image: linear-gradient(rgb(0, 109, 181), rgb(0, 43, 119));
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.2);
+}
+
 header {
     background-color: rgb(230, 96, 0);
     background-repeat: repeat-x;
@@ -60,10 +107,6 @@ header #btnInstall {
 }
 
 header #btnAdd {
-    background: url(images/add.png) no-repeat center center;
-}
-
-header #addItem {
     background: url(images/add.png) no-repeat center center;
 }
 

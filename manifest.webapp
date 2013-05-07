@@ -1,5 +1,5 @@
 {
-  "version": "0.0.02",
+  "version": "0.0.03",
   "name": "TODO",
   "launch_path": "index.html",
   "description": "A simple TODO app.",
