@@ -11,6 +11,13 @@ div.frame {
     background-color: #F3F3F4;
     padding: 0;
     margin: 0;
+    opacity: 1; /* Useful for CSS transitions. */
+}
+
+/* This is the very first displayed frame. */
+div.frame.start {
+    opacity: 1;
+    visibility: visible;
 }
 
 div.frame.overlay {
@@ -23,8 +30,15 @@ div.frame.overlay {
     bottom: 0;
     display: block;
     text-align: center;
-    display: none;
     font-size: 1.5rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 200ms ease-in, opacity 200ms ease-in;
+}
+
+div.frame.overlay.show {
+    visibility: visible;
+    opacity: 1;
 }
 
 div.frame.overlay div.message {
@@ -77,8 +91,8 @@ header button {
     transition: background 300ms linear 200ms;
 }
 
-header #btnMain {
-    background: rgb(200, 80, 0) url(images/back.png) no-repeat center center;
+header button.main {
+    background: rgb(200, 80, 0) no-repeat center center;
     position: absolute;
     left: 0;
     width: 2rem;
@@ -87,8 +101,16 @@ header #btnMain {
     margin: 0;
 }
 
-header #btnMain:active {
+header button.main:active {
     background-color: #0095DD;
+}
+
+header button.back {
+    background-image: url(images/back.png);
+}
+
+header button.close {
+    background-image: url(images/close.png);
 }
 
 header .actions button {
@@ -189,13 +211,7 @@ header li:active {
 
 footer {
     background:#6a7b86;
-    background:-moz-linear-gradient(top,#6a7b86 0%,#424f5a 100%);
-    background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#6a7b86),color-stop(100%,#424f5a));
-    background:-webkit-linear-gradient(top,#6a7b86 0%,#424f5a 100%);
-    background:-o-linear-gradient(top,#6a7b86 0%,#424f5a 100%);
-    background:-ms-linear-gradient(top,#6a7b86 0%,#424f5a 100%);
-    background:linear-gradient(top,#6a7b86 0%,#424f5a 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6a7b86',endColorstr='#424f5a',GradientType=0);
+    background:linear-gradient(#6a7b86 0%,#424f5a 100%);
     color: #fff;
     position: absolute;
     width:100%;
@@ -233,13 +249,7 @@ footer li button {
 
 footer li.activated {
     background:#b4beca;
-    background:-moz-linear-gradient(top,#b4beca 0%,#e1e5eB 100%);
-    background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#b4beca),color-stop(100%,#e1e5eB));
-    background:-webkit-linear-gradient(top,#b4beca 0%,#e1e5eB 100%);
-    background:-o-linear-gradient(top,#b4beca 0%,#e1e5eB 100%);
-    background:-ms-linear-gradient(top,#b4beca 0%,#e1e5eB 100%);
-    background:linear-gradient(top,#b4beca 0%,#e1e5eB 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b4beca',endColorstr='#e1e5eB',GradientType=0);
+    background:linear-gradient(#b4beca 0%,#e1e5eB 100%);
 /* color: #999; */
 }
 
