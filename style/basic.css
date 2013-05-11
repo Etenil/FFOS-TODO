@@ -14,7 +14,7 @@ div.frame {
 }
 
 div.frame.overlay {
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.8);
     z-index: 10;
     position: absolute;
     top: 0;
@@ -38,31 +38,29 @@ div.frame.overlay div.message {
 
 div.frame.overlay .buttons {
     position: absolute;
+    background-color: rgba(0,0,0,0.5);
     width: 100%;
-    bottom: 2rem;
+    bottom: 0;
     left: 0;
+    padding: 1rem 0;
 }
 
 div.frame.overlay .buttons button {
     font-size: 1.3rem;
-}
-
-div.frame.overlay button#closeoverlay {
     height: 3rem;
-    width: 75%;
+    width: 90%;
     min-width: 5rem;
-    max-width: 20rem;
-    background-image: linear-gradient(rgb(0, 149, 221), rgb(0, 83, 159));
-    border: none;
-    border-radius: 1rem;
-    color: #fff;
-    font-weight: bold;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+    max-width: 50rem;
+    background-image: linear-gradient(#fafafa, #cccccc);
+    border: 1px solid #a6a6a6;
+    border-radius: 0.2rem;
+    font-weight: 500;
 }
 
-div.frame.overlay button#closeoverlay:active {
-    background-image: linear-gradient(rgb(0, 109, 181), rgb(0, 43, 119));
-    box-shadow: 0px 5px 5px rgba(0,0,0,0.2);
+div.frame.overlay button:active {
+    background-image: none;
+    background-color: rgb(0, 138, 170);
+    border-color: rgb(0, 138, 170);
 }
 
 header {
