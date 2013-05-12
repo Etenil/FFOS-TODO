@@ -1,3 +1,5 @@
+@import url(animations.css);
+
 html, body, button {
     font-size: medium;
     width: 100%;
@@ -7,22 +9,29 @@ html, body, button {
     background: #F3F3F4;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 div.frame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-color: #F3F3F4;
     padding: 0;
     margin: 0;
-    opacity: 1; /* Useful for CSS transitions. */
 }
 
-/* This is the very first displayed frame. */
-div.frame.start {
-    opacity: 1;
-    visibility: visible;
+/* Those forms are hidden at the start. */
+div.frame[pos="right"] {
+    transform: translateX(100%);
 }
 
-div.frame.overlay {
+div.dialog {
     background-color: rgba(0,0,0,0.8);
-    z-index: 10;
+    z-index: 20;
     position: absolute;
     top: 0;
     left: 0;
@@ -33,15 +42,24 @@ div.frame.overlay {
     font-size: 1.5rem;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 200ms ease-in, opacity 200ms ease-in;
+    transition: visibility 100ms ease-in, opacity 100ms ease-in;
 }
 
-div.frame.overlay.show {
+div.frame.show {
+    z-index: 10;
+    animation: rightToCurrent 0.4s forwards;
+}
+
+div.frame.hide {
+    animation: currentToRight 0.4s forwards;
+}
+
+div.dialog.show {
     visibility: visible;
     opacity: 1;
 }
 
-div.frame.overlay div.message {
+div.dialog div.message {
     position: absolute;
     width: 100%;
     top: 50%;
@@ -50,7 +68,7 @@ div.frame.overlay div.message {
     color: #fff;
 }
 
-div.frame.overlay .buttons {
+div.dialog .buttons {
     position: absolute;
     background-color: rgba(0,0,0,0.5);
     width: 100%;
@@ -59,7 +77,7 @@ div.frame.overlay .buttons {
     padding: 1rem 0;
 }
 
-div.frame.overlay .buttons button {
+div.dialog .buttons button {
     font-size: 1.3rem;
     height: 3rem;
     width: 90%;
@@ -71,7 +89,7 @@ div.frame.overlay .buttons button {
     font-weight: 500;
 }
 
-div.frame.overlay button:active {
+div.dialog button:active {
     background-image: none;
     background-color: rgb(0, 138, 170);
     border-color: rgb(0, 138, 170);

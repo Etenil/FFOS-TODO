@@ -14,13 +14,13 @@
    <title>Todo</title>
 </head>
 <body>
-    <div class="frame overlay">
+    <div class="dialog">
         <div class="message">Error message</div>
         <div class="buttons">
-            <button id="closeoverlay">Dismiss</button>
+            <button class="close">Dismiss</button>
         </div>
 	</div>
-    <div class="frame start" id="mainFrame">
+    <div class="frame" pos="current" id="mainFrame">
         <header>
             <ul class="actions">
                 <li class="install"><button id="btnInstall">Install</button></li>
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div class="frame" id="addItemFrame">
+    <div class="frame" pos="right" id="addItemFrame">
         <header>
             <button class="main close" id="btnMain"></button> 
             <ul class="actions">

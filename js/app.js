@@ -47,14 +47,12 @@ $(document).ready(function() {
 
     // The add button was clicked.
     $('#btnAdd').click(function(e) {
-        $('#mainFrame').hide();
-        $('#addItemFrame').show();
+        $('#addItemFrame').showFrame();
     });
 
     // Hides the add item frame.
     $('#btnMain').click(function(e) {
-        $('#addItemFrame').hide();
-        $('#mainFrame').show();
+        $('#addItemFrame').hideFrame();
     });
 
     // Adds a new item.
@@ -68,7 +66,7 @@ $(document).ready(function() {
             $('#addItemFrame').hide();
             $('#mainFrame').show();
         } else {
-            overlayMsg("No TODO description entered.");
+            showDialog("No TODO description entered.");
         }
     });
 

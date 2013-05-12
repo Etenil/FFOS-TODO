@@ -1,6 +1,6 @@
-function closeOverlay(closefunc) {
+function closeDialog(closefunc) {
     return function(e) {
-        $('.overlay').hideFrame();
+        $('.dialog').hideFrame();
 
         if(closefunc) {
             closefunc();
@@ -12,18 +12,20 @@ function closeOverlay(closefunc) {
     $.extend($.fn, {
         showFrame: function() {
             $(this).addClass('show');
+            $(this).removeClass('hide');
         },
         hideFrame: function() {
             $(this).removeClass('show');
+            $(this).addClass('hide');
         }
     });
 })(Zepto);
 
-function overlayMsg(message, closefunc) {
-    $('.overlay .message').html(message);
+function showDialog(message, closefunc) {
+    $('.dialog .message').html(message);
 
-    $('.overlay').showFrame();
+    $('.dialog').showFrame();
 
-    $('.overlay #closeoverlay').click(closeOverlay(closefunc));
+    $('.dialog button.close').click(closeDialog(closefunc));
 }
 

@@ -1,15 +1,5 @@
 @import url('basic.css');
 
-/* Frames to display (or not) */
-#mainFrame {
-    display: block;
-}
-
-#addItemFrame {
-    display: none;
-}
-
-
 /* Items list */
 ul.list {
     font-size: 1.6em;
