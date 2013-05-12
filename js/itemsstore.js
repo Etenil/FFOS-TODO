@@ -44,6 +44,13 @@ function itemsStore() {
     };
 
     /**
+     * Sets an item value from its key.
+     */
+    this.setItem = function(key, content) {
+        return localStorage.setItem(key, content);
+    };
+
+    /**
      * Gets the last added item.
      */
     this.getLastItem = function() {

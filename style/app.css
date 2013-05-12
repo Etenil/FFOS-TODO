@@ -18,6 +18,7 @@ ul.list li.item {
 ul.list li.item p {
     margin: 0;
     padding: 1.5rem 3rem;
+    cursor: pointer;
 }
 
 ul.list li.item button.btnDelItem {

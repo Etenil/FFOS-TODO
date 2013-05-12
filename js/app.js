@@ -14,7 +14,7 @@ function refreshItems() {
             $('#itemsList .list').append(
                 '<li id="' + item.id + '"class="item">'
                     + '<button id="'+ item.id +'" class="btnDelItem"></button>'
-                    + '<p>' + item.value + '</p>'
+                    + '<p itemid="' + item.id + '">' + item.value + '</p>'
                     + '</li>');
         }
     } else {
@@ -54,14 +54,31 @@ $(document).ready(function() {
     // Hides the add item frame.
     $('#btnMain').click(function(e) {
         rightFrame.hide();
-        //$('#addItemFrame').hideFrame();
+    });
+
+    // Click on item (to display/edit it)
+    $('.item p').live('click', function(e) {
+        var itemid = $(this).attr('itemid');
+        var item = store.getItem(itemid);
+        $('#mainFrame').hide();
+        $('#addItemFrame').show();
+        $('#newItem').val(item);
+        $('#newItem').attr('itemid', itemid);
     });
 
     // Adds a new item.
     $('#addItem').click(function(e) {
         var val = $('#newItem').val();
-        if($('#newItem').val().trim() != "") {
-            store.addItem($('#newItem').val());
+        if(val.trim() != "") {
+            // Is that an update?
+            if($('#newItem').attr('itemid') > 0) {
+                store.setItem(
+                    $('#newItem').attr('itemid'),
+                    val);
+                $('#newItem').attr('itemid', '');
+            } else {
+                store.addItem(val);
+            }
             $('#newItem').val('');
             // Note that the items are refreshed while the form is shown.
             refreshItems();
