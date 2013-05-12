@@ -94,7 +94,7 @@ div.dialog .buttons button {
     font-weight: 500;
 }
 
-div.dialog button:active {
+div.dialog .buttons button:active {
     background-image: none;
     background-color: rgb(0, 138, 170);
     border-color: rgb(0, 138, 170);
@@ -111,7 +111,7 @@ header {
 }
 
 header button {
-    transition: background 300ms linear 200ms;
+    cursor: pointer;
 }
 
 header button.main {
@@ -188,7 +188,6 @@ header li {
     text-align: center;
     width: auto;
     height: 100%;
-    transition: background 300ms linear 200ms;
 }
 
 header li:active {
