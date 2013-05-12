@@ -45,13 +45,21 @@ div.dialog {
     transition: visibility 100ms ease-in, opacity 100ms ease-in;
 }
 
-div.frame.show {
+body.showRight div.frame[pos="right"] {
     z-index: 10;
     animation: rightToCurrent 0.4s forwards;
 }
 
-div.frame.hide {
+body.showRight div.frame[pos="main"] {
+    animation: currentToLeft 0.4s forwards;
+}
+
+body.hideRight div.frame[pos="right"] {
     animation: currentToRight 0.4s forwards;
+}
+
+body.hideRight div.frame[pos="main"] {
+    animation: leftToCurrent 0.4s forwards;
 }
 
 div.dialog.show {

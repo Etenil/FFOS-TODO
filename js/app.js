@@ -47,12 +47,14 @@ $(document).ready(function() {
 
     // The add button was clicked.
     $('#btnAdd').click(function(e) {
-        $('#addItemFrame').showFrame();
+        showRight();
+        //$('#addItemFrame').showFrame();
     });
 
     // Hides the add item frame.
     $('#btnMain').click(function(e) {
-        $('#addItemFrame').hideFrame();
+        hideRight();
+        //$('#addItemFrame').hideFrame();
     });
 
     // Adds a new item.
@@ -63,8 +65,7 @@ $(document).ready(function() {
             $('#newItem').val('');
             // Note that the items are refreshed while the form is shown.
             refreshItems();
-            $('#addItemFrame').hide();
-            $('#mainFrame').show();
+            hideRight();
         } else {
             showDialog("No TODO description entered.");
         }

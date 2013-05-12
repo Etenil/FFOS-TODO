@@ -8,6 +8,16 @@ function closeDialog(closefunc) {
     };
 }
 
+function showRight() {
+    $('body').removeClass('hideRight');
+    $('body').addClass('showRight');
+}
+
+function hideRight() {
+    $('body').removeClass('showRight');
+    $('body').addClass('hideRight');
+}
+
 (function($) {
     $.extend($.fn, {
         showFrame: function() {
