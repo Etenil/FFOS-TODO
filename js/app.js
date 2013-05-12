@@ -1,4 +1,5 @@
 var store = null;
+var currentItem = null;
 
 /**
  * Refreshes the items in the todo list.
@@ -47,42 +48,58 @@ $(document).ready(function() {
 
     // The add button was clicked.
     $('#btnAdd').click(function(e) {
-        rightFrame.show();
-        //$('#addItemFrame').showFrame();
+        $('#addItemFrame').showFrame();
     });
 
     // Hides the add item frame.
-    $('#btnMain').click(function(e) {
-        rightFrame.hide();
+    $('#btnCancel').click(function(e) {
+        $('#addItemFrame').hideFrame();
     });
 
     // Click on item (to display/edit it)
     $('.item p').live('click', function(e) {
-        var itemid = $(this).attr('itemid');
-        var item = store.getItem(itemid);
-        $('#mainFrame').hide();
-        $('#addItemFrame').show();
-        $('#newItem').val(item);
-        $('#newItem').attr('itemid', itemid);
+        $(this).addClass('active');
+        var that = $(this);
+        setTimeout(function() { that.removeClass('active'); }, 400);
+        currentItem = $(this).attr('itemid');
+        var item = store.getItem(currentItem);
+        $('#editItemField').val(item);
+        rightFrame.show();
+    });
+
+    // Back to the main page.
+    $('#btnMain').click(function(e) {
+        rightFrame.hide();
+    });
+
+    // Save a modified item.
+    $('#editItem').click(function(e) {
+        var val = $('#editItemField').val();
+        if(val.trim() != "") {
+            store.setItem(currentItem, val);
+            refreshItems();
+            rightFrame.hide();
+        } else {
+            showDialog("Can't save without description.");
+        }
+    });
+
+    // Deletes the current item.
+    $('#delItem').click(function(e) {
+        store.delItem(currentItem);
+        refreshItems();
+        rightFrame.hide();
     });
 
     // Adds a new item.
     $('#addItem').click(function(e) {
         var val = $('#newItem').val();
         if(val.trim() != "") {
-            // Is that an update?
-            if($('#newItem').attr('itemid') > 0) {
-                store.setItem(
-                    $('#newItem').attr('itemid'),
-                    val);
-                $('#newItem').attr('itemid', '');
-            } else {
-                store.addItem(val);
-            }
+            store.addItem(val);
             $('#newItem').val('');
             // Note that the items are refreshed while the form is shown.
             refreshItems();
-            rightFrame.hide();
+            $('#addItemFrame').hideFrame();
         } else {
             showDialog("No TODO description entered.");
         }

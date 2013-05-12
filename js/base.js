@@ -1,6 +1,6 @@
 function closeDialog(closefunc) {
     return function(e) {
-        $('.dialog').hideFrame();
+        $('#msgDialog').hideFrame();
 
         if(closefunc) {
             closefunc();
@@ -26,16 +26,6 @@ function Pane(name) {
 var sideBar = new Pane('Side');
 var rightFrame = new Pane('Right');
 
-function showRight() {
-    $('body').removeClass('hideRight');
-    $('body').addClass('showRight');
-}
-
-function hideRight() {
-    $('body').removeClass('showRight');
-    $('body').addClass('hideRight');
-}
-
 (function($) {
     $.extend($.fn, {
         showFrame: function() {
@@ -50,10 +40,10 @@ function hideRight() {
 })(Zepto);
 
 function showDialog(message, closefunc) {
-    $('.dialog .message').html(message);
+    $('#msgDialog .message').html(message);
 
-    $('.dialog').showFrame();
+    $('#msgDialog').showFrame();
 
-    $('.dialog button.close').click(closeDialog(closefunc));
+    $('#msgDialog button.close').click(closeDialog(closefunc));
 }
 

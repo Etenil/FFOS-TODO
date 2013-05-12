@@ -14,7 +14,7 @@
    <title>Todo</title>
 </head>
 <body>
-    <div class="dialog">
+    <div id="msgDialog" class="frame dialog">
         <div class="message">Error message</div>
         <div class="buttons">
             <button class="close">Dismiss</button>
@@ -40,18 +40,36 @@
         </div>
     </div>
 
-    <div class="frame" pos="right" id="addItemFrame">
+    <div class="frame" pos="right" id="itemFrame">
         <header>
-            <button class="main close" id="btnMain"></button> 
+            <button class="main back" id="btnMain"></button> 
             <ul class="actions">
-              <li><button id="addItem">Save</button></li>
+              <li><button class="text" id="editItem">Save</button></li>
+              <li><button id="delItem"></button></li>
+            </ul>
+            <h1>Edit a TODO item</h1>
+        </header>
+
+        <div id="itemFull" class="body">
+            <div class="textEntry">
+                <textarea id="editItemField"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="frame dialog" id="addItemFrame">
+        <header>
+            <button class="main close" id="btnCancel"></button> 
+            <ul class="actions">
+              <li><button class="text" id="addItem">Save</button></li>
             </ul>
             <h1>Add a TODO item</h1>
         </header>
 
         <div id="itemForm" class="body">
             <div class="textEntry">
-                <textarea id="newItem" itemid="" placeholder="Enter your item description"></textarea>
+                <textarea id="newItem"
+                    placeholder="Enter your item description"></textarea>
             </div>
         </div>
     </div>

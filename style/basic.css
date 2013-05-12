@@ -30,19 +30,16 @@ div.frame[pos="right"] {
 }
 
 div.dialog {
-    background-color: rgba(0,0,0,0.8);
-    z-index: 20;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-    text-align: center;
-    font-size: 1.5rem;
     visibility: hidden;
     opacity: 0;
     transition: visibility 100ms ease-in, opacity 100ms ease-in;
+}
+
+#msgDialog {
+    background-color: rgba(0,0,0,0.8);
+    z-index: 20;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 body.showRight div.frame[pos="right"] {
@@ -146,7 +143,7 @@ header .actions button {
     margin: 0;
 }
 
-header #btnInstall {
+header .actions button.text, header #btnInstall {
     color: #fff;
     font-size: 1.5rem;
     font-weight: 600;

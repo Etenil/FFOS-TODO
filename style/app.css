@@ -21,6 +21,10 @@ ul.list li.item p {
     cursor: pointer;
 }
 
+ul.list li.item p.active {
+    background-color: rgb(0, 138, 170);
+}
+
 ul.list li.item button.btnDelItem {
     background: url(images/delete.png) no-repeat center center;
     float: right;
@@ -57,5 +61,9 @@ header #addItem {
     margin: 1.4rem 0 0;
     width: auto;
     height: auto;
+}
+
+header #delItem {
+    background: url(images/delete-white.png) no-repeat center center;
 }
 
