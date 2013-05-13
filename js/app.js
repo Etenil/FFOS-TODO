@@ -58,10 +58,13 @@ $(document).ready(function() {
 
     // Click on item (to display/edit it)
     $('.item p').live('click', function(e) {
+        currentItem = $(this).attr('itemid');
+        if(!currentItem) {
+            return;
+        }
         $(this).addClass('active');
         var that = $(this);
         setTimeout(function() { that.removeClass('active'); }, 400);
-        currentItem = $(this).attr('itemid');
         var item = store.getItem(currentItem);
         $('#editItemField').val(item);
         rightFrame.show();
