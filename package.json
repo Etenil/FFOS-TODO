@@ -1,0 +1,16 @@
+{
+  "name": "TODO",
+  "version": "0.0.05",
+  "dependencies": {
+    "volo-ghdeploy": "0.0.3",
+    "connect": "~2.4.4",
+    "less-middleware": "~0.1.5"
+  },
+  "amd": {},
+  "volo": {
+    "dependencies": {
+      "zepto": "github:madrobby/zepto/v1.0"
+    },
+    "baseUrl": "www/js/lib"
+  }
+}
