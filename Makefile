@@ -3,7 +3,7 @@
 all: icons appcache
 
 icons:
-	sh applogos/icons.sh
+	bash applogos/icons.sh
 
 appcache: clear-appcache
 	echo "CACHE MANIFEST" >> todo.appcache
