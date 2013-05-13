@@ -161,3 +161,16 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+# app cache
+todo.appcache
+
+# icons
+applogos/logo16.png
+applogos/logo30.png
+applogos/logo32.png
+applogos/logo48.png
+applogos/logo60.png
+applogos/logo64.png
+applogos/logo128.png
+
