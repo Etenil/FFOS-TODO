@@ -107,7 +107,17 @@ $(document).ready(function() {
 
     // Deletes an item.
     $('.btnDelItem').live('click', function(e) {
-        store.delItem($(this).attr('id'))
-        refreshItems();
+        // It's a bit too easy to delete, so we show a dialog here.
+        var dialog = new Dialog(
+            "Are you sure that you want to delete this item?",
+            Dialog.BUTTONS_YESNO
+        );
+        var that = this;
+        dialog.show(function(button) {
+            if(button == 'yes') {
+                store.delItem($(that).attr('id'))
+                refreshItems();
+            }
+        });
     });
 });

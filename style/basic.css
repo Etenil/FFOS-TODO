@@ -94,6 +94,14 @@ div.dialog .buttons button {
     font-weight: 500;
 }
 
+div.dialog .buttons button.half {
+    width: 45%;
+}
+
+div.dialog .buttons button.half:first-child {
+    margin-right: 1rem;
+}
+
 div.dialog .buttons button:active {
     background-image: none;
     background-color: rgb(0, 138, 170);
