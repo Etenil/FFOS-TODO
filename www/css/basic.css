@@ -198,6 +198,10 @@ header li {
     height: 100%;
 }
 
+header li:first-child {
+    background: none;
+}
+
 header li:active {
     background-color: #0095DD;
 }
