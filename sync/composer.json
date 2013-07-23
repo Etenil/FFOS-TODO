@@ -1,0 +1,7 @@
+{
+    "name": "Etenil/FFOS-TODO",
+    "description": "Sync tool for TODO",
+    "require": {
+        "etenil/atlatl": "dev-master"
+    }
+}
