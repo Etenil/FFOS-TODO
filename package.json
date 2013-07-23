@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "version": "0.0.05",
+  "name": "todo",
+  "version": "0.0.5",
   "dependencies": {
     "volo-ghdeploy": "0.0.3",
     "connect": "~2.4.4",

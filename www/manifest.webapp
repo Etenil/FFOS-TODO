@@ -4,14 +4,14 @@
   "launch_path": "/index.html",
   "description": "A simple TODO app.",
   "icons": {
-    "16": "/applogos/logo16.png",
-    "30": "/applogos/logo30.png",
-    "32": "/applogos/logo32.png",
-    "48": "/applogos/logo48.png",
-    "60": "/applogos/logo60.png",
-    "64": "/applogos/logo64.png",
-    "128": "/applogos/logo128.png",
-    "256": "/applogos/logo256.png"
+    "16": "/img/icons/logo16.png",
+    "30": "/img/icons/logo30.png",
+    "32": "/img/icons/logo32.png",
+    "48": "/img/icons/logo48.png",
+    "60": "/img/icons/logo60.png",
+    "64": "/img/icons/logo64.png",
+    "128": "/img/icons/logo128.png",
+    "256": "/img/icons/logo256.png"
   },
   "developer": {
     "name": "Guillaume Pasquet",
