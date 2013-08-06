@@ -6,6 +6,7 @@ define(function(require) {
     var $ = require('zepto');
     var ffos = require('./ffosbase');
     require('receiptverifier');
+    require('https://login.persona.org/include.js');
     require('./btninstall');
     itemsStore = require('./itemsstore');
 
@@ -65,6 +66,26 @@ define(function(require) {
         // Hides the add item frame.
         $('#btnCancel').click(function(e) {
             ffos.hideFrame('#addItemFrame');
+        });
+
+        // Persona
+        navigator.id.watch({
+            loggedInUser: null,
+            onlogin: function(assertion) {
+                alert('You are logged in!');
+                alert(assertion);
+            },
+            onlogout: function() {
+                alert('You are logged out...');
+            }
+        });
+        $('#signIn').click(function(e) {
+            e.preventDefault();
+            navigator.id.request();
+        });
+        $('#signOut').click(function(e) {
+            e.preventDefault();
+            navigator.id.logout();
         });
 
         // Click on item (to display/edit it)
