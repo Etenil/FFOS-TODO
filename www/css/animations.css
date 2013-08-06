@@ -153,9 +153,17 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
+@keyframes drawerToLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-85%); }
+}
 @keyframes currentToRight {
   0%   { transform: translateX(0); }
   100% { transform: translateX(100%); }
+}
+@keyframes drawerToRight {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(85%); }
 }
 @keyframes leftToCurrent {
   0%   { transform: translateX(-100%); }

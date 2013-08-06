@@ -86,6 +86,15 @@ define(function(require) {
             ffos.rightFrame.hide();
         });
 
+        // Display the sidebar.
+        $('#btnSidebar').click(function(e) {
+            if(ffos.sideBar.shown) {
+                ffos.sideBar.hide();
+            } else {
+                ffos.sideBar.show();
+            }
+        });
+
         // Save a modified item.
         $('#editItem').click(function(e) {
             var val = $('#editItemField').val();

@@ -31,14 +31,17 @@ define(function(require) {
 
         this.Pane = function(name) {
             this.name = name;
+            this.shown = false;
 
             this.show = function() {
-                $('body').removeClass('hide' + this.name);
+                this.shown = true;
+                $('body').removeClass();
                 $('body').addClass('show' + this.name);
             };
 
             this.hide = function() {
-                $('body').removeClass('show' + this.name);
+                this.shown = false;
+                $('body').removeClass();
                 $('body').addClass('hide' + this.name);
             };
         };

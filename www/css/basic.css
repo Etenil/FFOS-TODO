@@ -24,9 +24,22 @@ div.frame {
     margin: 0;
 }
 
+div.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 15%;
+    background-color: #444;
+}
+
 /* Those forms are hidden at the start. */
 div.frame[pos="right"] {
     transform: translateX(100%);
+}
+
+div.sidebar[pos="drawer"] {
+    transform: translateX(-100%);
 }
 
 div.dialog {
@@ -42,11 +55,24 @@ div.dialog {
     font-size: 1.5rem;
 }
 
+body.showSide div.sidebar[pos="drawer"] {
+    animation: leftToCurrent 0.4s forwards;
+}
+body.showSide div.frame[pos="main"] {
+    animation: drawerToRight 0.4s forwards;
+}
+body.hideSide div.sidebar[pos="drawer"] {
+    animation: currentToLeft 0.4s forwards;
+}
+body.hideSide div.frame[pos="main"] {
+    animation: rightToCurrent 0.4s forwards;
+}
+
+
 body.showRight div.frame[pos="right"] {
     z-index: 10;
     animation: rightToCurrent 0.4s forwards;
 }
-
 body.showRight div.frame[pos="main"] {
     animation: currentToLeft 0.4s forwards;
 }
@@ -54,7 +80,6 @@ body.showRight div.frame[pos="main"] {
 body.hideRight div.frame[pos="right"] {
     animation: currentToRight 0.4s forwards;
 }
-
 body.hideRight div.frame[pos="main"] {
     animation: leftToCurrent 0.4s forwards;
 }
@@ -118,6 +143,12 @@ header {
     z-index: 2;
 }
 
+div.sidebar header {
+    background-color: #333;
+    background-repeat: repeat-x;
+    background-image: linear-gradient(#4F4F4F, #383838);
+}
+
 header button {
     cursor: pointer;
 }
@@ -134,6 +165,15 @@ header button.main {
 
 header button.main:active {
     background-color: #0095DD;
+}
+
+header button.sidebar,
+header button.sidebar:active {
+    background-color: transparent;
+}
+
+header button.sidebar {
+    background-image: url(../img/menu.png);
 }
 
 header button.back {
@@ -293,5 +333,22 @@ footer li:active {
 
 footer li:last-child {
     border:none;
+}
+
+/* Vertical menu, usually for sidebar. */
+ul.vmenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul.vmenu li {
+    border-bottom: 1px solid #555;
+}
+ul.vmenu li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.3rem;
+    padding: 1rem 1rem 1rem 3rem;
 }
 
