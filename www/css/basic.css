@@ -343,6 +343,12 @@ ul.vmenu {
 }
 ul.vmenu li {
     border-bottom: 1px solid #555;
+    color: #fff;
+    font-size: 1.3rem;
+}
+ul.vmenu li.lbl {
+    background: #222;
+    padding: 1rem;
 }
 ul.vmenu li a {
     display: block;
