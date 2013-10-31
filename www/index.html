@@ -34,12 +34,19 @@
 
         <div id="itemsList" class="body">
             <ul class="list">
-                <li class="item">
-                    <p>
-                      Press the <strong>+</strong> button to add a TODO item.
-                    </p>
-                </li>
+              <li class="placeholder">
+                <p>
+                  Press the <strong>+</strong> button to add a TODO item.
+                </p>
+              </li>
             </ul>
+            <!-- Template of a todo item. -->
+            <script id="tpl-todo-item" type="text/x-mustache-template">
+              <li id="{{id}}" class="item">
+                <button id="{{id}}" class="btnDelItem"></button>
+                <p itemid="{{id}}">{{value}}</p>
+              </li>
+            </script>
         </div>
     </div>
 

@@ -4,6 +4,7 @@
 define(function(require) {
     var $ = require('zepto');
     var ffos = require('./ffosbase');
+    var Mustache = require('mustache');
     require('receiptverifier');
     require('https://login.persona.org/include.js');
     require('./btninstall');
@@ -20,22 +21,17 @@ define(function(require) {
         var items = store.getAllItems(true);
         if(items.length > 0) {
             // Wiping all demo items.
-            $('#itemsList .list').html('');
+            $('#itemsList .list .placeholder').hide();
+            $('#itemsList .list .item').remove();
             for(var key in items) {
                 var item = items[key];
                 $('#itemsList .list').append(
-                    '<li id="' + item.id + '"class="item">'
-                        + '<button id="'+ item.id +'" class="btnDelItem"></button>'
-                        + '<p itemid="' + item.id + '">' + item.value + '</p>'
-                        + '</li>');
+                    Mustache.render($('#tpl-todo-item').html(), item)
+                );
             }
         } else {
-           $('#itemsList .list').html(
-                    '<li class="item">'
-                  + '   <p>'
-                  + '     Press the <strong>+</strong> button to add a TODO item.'
-                  + '   </p>'
-                  + '</li>');
+            $('#itemsList .list .item').remove();
+            $('#itemsList .list .placeholder').show();
         }
     }
 

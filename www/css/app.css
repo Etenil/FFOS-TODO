@@ -9,6 +9,19 @@ ul.list {
     list-style-type: none;
 }
 
+ul.list li.placeholder {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+ul.list li.placeholder p {
+    margin-top: -1rem;
+    text-align: center;
+}
+
 ul.list li.item {
     width: 100%;
     min-height: 5rem;

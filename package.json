@@ -9,7 +9,8 @@
   "amd": {},
   "volo": {
     "dependencies": {
-      "zepto": "github:madrobby/zepto/v1.0"
+      "zepto": "github:madrobby/zepto/v1.0",
+      "mustache": "github:janl/mustache.js/0.7.2"
     },
     "baseUrl": "www/js/lib"
   }
