@@ -6,7 +6,6 @@ define(function(require) {
     var ffos = require('./ffosbase');
     var Mustache = require('mustache');
     require('receiptverifier');
-    require('https://login.persona.org/include.js');
     require('./btninstall');
     itemsStore = require('./itemsstore');
 
@@ -66,54 +65,6 @@ define(function(require) {
         // Setting up buttons...
         $('.signedin').hide();
         $('.signedout').show();
-
-        // Persona
-        navigator.id.watch({
-            loggedInUser: null,
-            onlogin: function(assertion) {
-                $.ajax({
-                    url: 'http://localhost:8000/login',
-                    async: false,
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {
-                        assertion: assertion
-                    },
-                    success: function(data, status, xhr) {
-                        $('#userEmail').html(data.email);
-                        $('.signedin').show();
-                        $('.signedout').hide();
-                    },
-                    error: function(xhr, errorType, error) {
-                        alert("Sorry, couldn't log you in...");
-                    }
-                });
-            },
-            onlogout: function() {
-                $.ajax({
-                    url: 'http://localhost:8000/logout',
-                    async: false,
-                    dataType: 'json',
-                    success: function(data, status, xhr) {
-                        $('.signedin').hide();
-                        $('.signedout').show();
-                    },
-                    error: function(data, status, xhr) {
-                        alert("Something bad happened...");
-                    }
-                });
-            }
-        });
-        $('#signIn').click(function(e) {
-            e.preventDefault();
-            navigator.id.request({
-                siteName: "TODO app for Firefox"
-            });
-        });
-        $('#signOut').click(function(e) {
-            e.preventDefault();
-            navigator.id.logout();
-        });
 
         // Click on item (to display/edit it)
         $('.item p').live('click', function(e) {
