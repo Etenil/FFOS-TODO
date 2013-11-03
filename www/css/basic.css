@@ -358,3 +358,15 @@ ul.vmenu li a {
     padding: 1rem 1rem 1rem 3rem;
 }
 
+.spinner {
+  position: absolute;
+  top: calc(50% - 1.5rem);
+  left: calc(50% - 1.5rem);
+  width: 2.9rem;
+  height: 2.9rem;
+  background: url(../img/spinner.png) no-repeat center center / 100%;
+  animation: 0.9s spinner-animation infinite steps(30);
+  border: none;
+  z-index: 100;
+}
+

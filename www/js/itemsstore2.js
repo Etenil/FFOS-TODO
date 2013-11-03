@@ -1,5 +1,5 @@
 define(function(require) {
-    var PouchDB = require('pouchdb');
+    require('pouchdb');
     
     return function() {
         this.db = new PouchDB('todos');
@@ -20,15 +20,32 @@ define(function(require) {
         this.getAllItems = function(descending, callback) {
             var items = [];
             this.db.allDocs(
-                {include_docs: true, descending: true},
-                function(err, doc) {
-                    if(!err) {
-                        items = doc.rows;
-                    }
-                }
+                {include_docs: true, descending: descending},
+                callback
             );
 
             return items;
         };
+
+        this.getItem = function(id, callback) {
+            this.db.get(id, callback);
+        };
+
+        this.setItem = function(id, rev, item, callback) {
+            var todo = {
+                '_id': id,
+                '_rev': rev,
+                'content': item
+            };
+            this.db.put(todo, callback);
+        };
+
+        this.delItem = function(id, rev, callback) {
+            this.db.remove({
+                '_id': id,
+                '_rev': rev
+            }, callback);
+        };
     };
 });
+

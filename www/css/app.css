@@ -10,6 +10,7 @@ ul.list {
 }
 
 ul.list li.placeholder {
+    display: none;
     position: absolute;
     top: 50%;
     bottom: 0;

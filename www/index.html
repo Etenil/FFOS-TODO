@@ -34,6 +34,9 @@
 
         <div id="itemsList" class="body">
             <ul class="list">
+              <li class="spinner">
+                &nbsp;
+              </li>
               <li class="placeholder">
                 <p>
                   Press the <strong>+</strong> button to add a TODO item.
@@ -42,9 +45,9 @@
             </ul>
             <!-- Template of a todo item. -->
             <script id="tpl-todo-item" type="text/x-mustache-template">
-              <li id="{{id}}" class="item">
-                <button id="{{id}}" class="btnDelItem"></button>
-                <p itemid="{{id}}">{{value}}</p>
+              <li id="{{_id}}" class="item">
+                <button itemid="{{_id}}" itemrev="{{_rev}}" class="btnDelItem"></button>
+                <p itemid="{{_id}}" itemrev="{{_rev}}">{{content}}</p>
               </li>
             </script>
         </div>

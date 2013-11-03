@@ -7,7 +7,7 @@ define(function(require) {
     var Mustache = require('mustache');
     require('receiptverifier');
     require('./btninstall');
-    itemsStore = require('./itemsstore');
+    itemsStore = require('./itemsstore2');
 
     var store = null;
     var currentItem = null;
@@ -17,21 +17,25 @@ define(function(require) {
      */
     function refreshItems() {
         // Loading storage items.
-        var items = store.getAllItems(true);
-        if(items.length > 0) {
-            // Wiping all demo items.
-            $('#itemsList .list .placeholder').hide();
-            $('#itemsList .list .item').remove();
-            for(var key in items) {
-                var item = items[key];
-                $('#itemsList .list').append(
-                    Mustache.render($('#tpl-todo-item').html(), item)
-                );
+        store.getAllItems(true, function(err, doc) {
+            if(!err && doc.rows.length > 0) {
+                var items = doc.rows;
+                // Wiping all demo items.
+                $('#itemsList .list .spinner').hide();
+                $('#itemsList .list .placeholder').hide();
+                $('#itemsList .list .item').remove();
+                for(var key in items) {
+                    var item = items[key];
+                    $('#itemsList .list').append(
+                        Mustache.render($('#tpl-todo-item').html(), item.doc)
+                    );
+                }
+            } else {
+                $('#itemsList .list .item').remove();
+                $('#itemsList .list .spinner').hide();
+                $('#itemsList .list .placeholder').show();
             }
-        } else {
-            $('#itemsList .list .item').remove();
-            $('#itemsList .list .placeholder').show();
-        }
+        });
     }
 
     $(document).ready(function() {
@@ -68,16 +72,20 @@ define(function(require) {
 
         // Click on item (to display/edit it)
         $('.item p').live('click', function(e) {
-            currentItem = $(this).attr('itemid');
+            currentItem = {
+                id: $(this).attr('itemid'),
+                rev: $(this).attr('itemrev')
+            };
             if(!currentItem) {
                 return;
             }
             $(this).addClass('active');
             var that = $(this);
             setTimeout(function() { that.removeClass('active'); }, 400);
-            var item = store.getItem(currentItem);
-            $('#editItemField').val(item);
-            ffos.rightFrame.show();
+            store.getItem(currentItem.id, function(err, item) {
+                $('#editItemField').val(item.content);
+                ffos.rightFrame.show();
+            });
         });
 
         // Back to the main page.
@@ -98,9 +106,10 @@ define(function(require) {
         $('#editItem').click(function(e) {
             var val = $('#editItemField').val();
             if(val.trim() != "") {
-                store.setItem(currentItem, val);
-                refreshItems();
-                ffos.rightFrame.hide();
+                store.setItem(currentItem.id, currentItem.rev, val, function(err, response) {
+                    refreshItems();
+                    ffos.rightFrame.hide();
+                });
             } else {
                 ffos.showDialog("Can't save without description.");
             }
@@ -108,9 +117,10 @@ define(function(require) {
 
         // Deletes the current item.
         $('#delItem').click(function(e) {
-            store.delItem(currentItem);
-            refreshItems();
-            ffos.rightFrame.hide();
+            store.delItem(currentItem.id, currentItem.rev, function(err, response) {
+                refreshItems();
+                ffos.rightFrame.hide();
+            });
         });
 
         // Adds a new item.
@@ -137,8 +147,12 @@ define(function(require) {
             var that = this;
             dialog.show(function(button) {
                 if(button == 'yes') {
-                    store.delItem($(that).attr('id'))
-                    refreshItems();
+                    store.delItem(
+                        $(that).attr('itemid'),
+                        $(that).attr('itemrev'),
+                        function(err, response) {
+                            refreshItems();
+                    });
                 }
             });
         });
