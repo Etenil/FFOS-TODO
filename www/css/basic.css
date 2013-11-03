@@ -59,31 +59,39 @@ div.dialog {
 
 body.showSide div.sidebar[pos="drawer"] {
     animation: leftToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 body.showSide div.frame[pos="main"] {
     animation: drawerToRight 0.4s forwards;
+    -webkit-transform: translateX(85%);
 }
 body.hideSide div.sidebar[pos="drawer"] {
     animation: currentToLeft 0.4s forwards;
+    -webkit-transform: translateX(-100%);
 }
 body.hideSide div.frame[pos="main"] {
     animation: rightToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 
 
 body.showRight div.frame[pos="right"] {
     z-index: 10;
     animation: rightToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 body.showRight div.frame[pos="main"] {
     animation: currentToLeft 0.4s forwards;
+    -webkit-transform: translateX(-100%);
 }
 
 body.hideRight div.frame[pos="right"] {
     animation: currentToRight 0.4s forwards;
+    -webkit-transform: translateX(100%);
 }
 body.hideRight div.frame[pos="main"] {
     animation: leftToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 
 div.dialog.show {
