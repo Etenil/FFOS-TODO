@@ -148,7 +148,11 @@ define(function(require) {
 
         // Deletes the current item.
         $('#delItem').click(function(e) {
-            store.delItem(currentItem.id, currentItem.rev, function(err, response) {
+            store.delItem(currentItem._id, currentItem._rev, function(err, response) {
+                if(err) {
+                    console.log(err);
+                    return;
+                }
                 refreshItems();
                 ffos.rightFrame.hide();
             });
