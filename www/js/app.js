@@ -192,23 +192,14 @@ define(function(require) {
             });
         });
 
-       // Check an item.
-       $('.btnCheckItem').click(function(e) {
-          var that=this;
-
-          var regex = new RegExp("\\b" + 'checked' + "\\b" ); var result = regex.test($(that).className);
-
-          if(result=false) {
-              $(that).addClass('checked');
-
-              // Great job merit congratulations 
-              var dialog = new ffos.Dialog("You're a champion ! YOU DO IT !");
-              dialog.show();
-
-          }else {
-              $(that).removeClass('checked');
-          }
-
+        // Check an item.
+        $('.btnCheckItem').click(function(e) {
+            var self = $(this);
+            if(!self.hasClass('checked')) {
+                self.addClass('checked');
+            } else {
+                self.removeClass('checked');
+            }
        });
     });
 });
