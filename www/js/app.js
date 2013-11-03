@@ -7,8 +7,10 @@ define(function(require) {
     var Mustache = require('mustache');
     require('receiptverifier');
     require('./btninstall');
+    localItemsStore = require('./localitemsstore');
     itemsStore = require('./itemsstore');
 
+    var localstore = null;
     var store = null;
     var currentItem = null;
 
@@ -41,7 +43,7 @@ define(function(require) {
     $(document).ready(function() {
         // Do we have localstorage support? If not, forget it.
         try {
-            store = new itemsStore();
+            localstore = new localItemsStore();
         }
         catch(e) {
             if(e == "No localStorage support.") { 
@@ -52,6 +54,27 @@ define(function(require) {
                 console.log(e);
             }
             return;
+        }
+        // OK, now the new store.
+        try {
+            store = new itemsStore();
+        }
+        catch(e) {
+            alert("An error occured. Please contact the developer.");
+            console.log(e);
+            return;
+        }
+
+        // Do we need to upgrade?
+        items = localstore.getAllItems();
+        if(items.length > 0) {
+            // Migrating...
+            for(var key in items) {
+                if(items[key].id != "_pouch_todos") {
+                    store.addItem(items[key].value);
+                    localstore.delItem(items[key].id);
+                }
+            }
         }
 
         refreshItems();
