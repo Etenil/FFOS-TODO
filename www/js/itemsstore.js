@@ -5,16 +5,12 @@ define(function(require) {
         this.db = new PouchDB('todos');
         this.remoteCouch = false;
 
-        this.addItem = function(content) {
+        this.addItem = function(content, callback) {
             var todo = {
                 '_id': new Date().toISOString(),
                 'content': content,
             }
-            this.db.put(todo, function(err, result) {
-                if(err) {
-                    console.log("The item failed to save.");
-                }
-            });
+            this.db.put(todo, callback);
         };
 
         this.getAllItems = function(descending, callback) {

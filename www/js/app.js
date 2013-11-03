@@ -150,11 +150,16 @@ define(function(require) {
         $('#addItem').click(function(e) {
             var val = $('#newItem').val();
             if(val.trim() != "") {
-                store.addItem(val);
-                $('#newItem').val('');
-                // Note that the items are refreshed while the form is shown.
-                refreshItems();
-                $('#addItemFrame').hideFrame();
+                store.addItem(val, function(err, result) {
+                    if(err) {
+                        console.log("The item failed to save.");
+                    } else {
+                        $('#newItem').val('');
+                        // Note that the items are refreshed while the form is shown.
+                        refreshItems();
+                        $('#addItemFrame').hideFrame();
+                    }
+                });
             } else {
                 ffos.showDialog("No TODO description entered.");
             }
