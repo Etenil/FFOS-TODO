@@ -194,12 +194,21 @@ define(function(require) {
 
        // Check an item.
        $('.btnCheckItem').click(function(e) {
-           // Great job merit congratulations
-           var dialog = new ffos.Dialog("You're a champion ! YOU DO IT !");
-           dialog.show();
-
           var that=this;
-          $(that).addClass('checked');
+
+          var regex = new RegExp("\\b" + 'checked' + "\\b" ); var result = regex.test($(that).className);
+
+          if(result=false) {
+              $(that).addClass('checked');
+
+              // Great job merit congratulations 
+              var dialog = new ffos.Dialog("You're a champion ! YOU DO IT !");
+              dialog.show();
+
+          }else {
+              $(that).removeClass('checked');
+          }
+
        });
     });
 });
