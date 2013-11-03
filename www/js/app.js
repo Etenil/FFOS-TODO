@@ -7,7 +7,7 @@ define(function(require) {
     var Mustache = require('mustache');
     require('receiptverifier');
     require('./btninstall');
-    itemsStore = require('./itemsstore2');
+    itemsStore = require('./itemsstore');
 
     var store = null;
     var currentItem = null;
