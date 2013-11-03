@@ -38,8 +38,7 @@ ul.list li.item p.active {
     background-color: rgb(0, 138, 170);
 }
 
-ul.list li.item button.btnDelItem {
-    background: url(../img/delete.png) no-repeat center center;
+ul.list li.item button {
     float: right;
     font-size: 1.5rem;
     width: 3rem;
@@ -47,6 +46,12 @@ ul.list li.item button.btnDelItem {
     margin-top: 1rem;
     border: none;
 }
+
+.btnDelItem	{ background: url(../img/delete.png) no-repeat center center;	}
+
+.btnCheckItem 	{  background: url(../img/checkbox.png) no-repeat center center; background-position: 0px 5px;	}
+.btnCheckItem.checked { background-position: 0px -25px; }
+
 
 /* The text area. */
 .textEntry {

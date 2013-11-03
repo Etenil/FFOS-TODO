@@ -41,12 +41,16 @@
               </li>
             </ul>
             <!-- Template of a todo item. -->
+
             <script id="tpl-todo-item" type="text/x-mustache-template">
               <li id="{{id}}" class="item">
                 <button id="{{id}}" class="btnDelItem"></button>
+                <button id="{{id}}" class="btnCheckItem"></button>
                 <p itemid="{{id}}">{{value}}</p>
               </li>
             </script>
+
+
         </div>
     </div>
 

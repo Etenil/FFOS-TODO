@@ -45,6 +45,7 @@ index.html
 js/app.js
 js/init.js
 js/lib/require.js
+img/checkbox.png
 manifest.webapp
 
 # catch-all for anything else
