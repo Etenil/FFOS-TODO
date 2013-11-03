@@ -6,10 +6,11 @@ define(function(require) {
     var ffos = require('./ffosbase');
     var Mustache = require('mustache');
     require('receiptverifier');
-    require('https://login.persona.org/include.js');
     require('./btninstall');
+    localItemsStore = require('./localitemsstore');
     itemsStore = require('./itemsstore');
 
+    var localstore = null;
     var store = null;
     var currentItem = null;
 
@@ -18,27 +19,31 @@ define(function(require) {
      */
     function refreshItems() {
         // Loading storage items.
-        var items = store.getAllItems(true);
-        if(items.length > 0) {
-            // Wiping all demo items.
-            $('#itemsList .list .placeholder').hide();
-            $('#itemsList .list .item').remove();
-            for(var key in items) {
-                var item = items[key];
-                $('#itemsList .list').append(
-                    Mustache.render($('#tpl-todo-item').html(), item)
-                );
+        store.getAllItems(true, function(err, doc) {
+            if(!err && doc.rows.length > 0) {
+                var items = doc.rows;
+                // Wiping all demo items.
+                $('#itemsList .list .spinner').hide();
+                $('#itemsList .list .placeholder').hide();
+                $('#itemsList .list .item').remove();
+                for(var key in items) {
+                    var item = items[key];
+                    $('#itemsList .list').append(
+                        Mustache.render($('#tpl-todo-item').html(), item.doc)
+                    );
+                }
+            } else {
+                $('#itemsList .list .item').remove();
+                $('#itemsList .list .spinner').hide();
+                $('#itemsList .list .placeholder').show();
             }
-        } else {
-            $('#itemsList .list .item').remove();
-            $('#itemsList .list .placeholder').show();
-        }
+        });
     }
 
     $(document).ready(function() {
         // Do we have localstorage support? If not, forget it.
         try {
-            store = new itemsStore();
+            localstore = new localItemsStore();
         }
         catch(e) {
             if(e == "No localStorage support.") { 
@@ -49,6 +54,27 @@ define(function(require) {
                 console.log(e);
             }
             return;
+        }
+        // OK, now the new store.
+        try {
+            store = new itemsStore();
+        }
+        catch(e) {
+            alert("An error occured. Please contact the developer.");
+            console.log(e);
+            return;
+        }
+
+        // Do we need to upgrade?
+        items = localstore.getAllItems();
+        if(items.length > 0) {
+            // Migrating...
+            for(var key in items) {
+                if(items[key].id != "_pouch_todos") {
+                    store.addItem(items[key].value);
+                    localstore.delItem(items[key].id);
+                }
+            }
         }
 
         refreshItems();
@@ -67,66 +93,22 @@ define(function(require) {
         $('.signedin').hide();
         $('.signedout').show();
 
-        // Persona
-        navigator.id.watch({
-            loggedInUser: null,
-            onlogin: function(assertion) {
-                $.ajax({
-                    url: 'http://localhost:8000/login',
-                    async: false,
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {
-                        assertion: assertion
-                    },
-                    success: function(data, status, xhr) {
-                        $('#userEmail').html(data.email);
-                        $('.signedin').show();
-                        $('.signedout').hide();
-                    },
-                    error: function(xhr, errorType, error) {
-                        alert("Sorry, couldn't log you in...");
-                    }
-                });
-            },
-            onlogout: function() {
-                $.ajax({
-                    url: 'http://localhost:8000/logout',
-                    async: false,
-                    dataType: 'json',
-                    success: function(data, status, xhr) {
-                        $('.signedin').hide();
-                        $('.signedout').show();
-                    },
-                    error: function(data, status, xhr) {
-                        alert("Something bad happened...");
-                    }
-                });
-            }
-        });
-        $('#signIn').click(function(e) {
-            e.preventDefault();
-            navigator.id.request({
-                siteName: "TODO app for Firefox"
-            });
-        });
-        $('#signOut').click(function(e) {
-            e.preventDefault();
-            navigator.id.logout();
-        });
-
         // Click on item (to display/edit it)
         $('.item p').live('click', function(e) {
-            currentItem = $(this).attr('itemid');
+            currentItem = {
+                id: $(this).attr('itemid'),
+                rev: $(this).attr('itemrev')
+            };
             if(!currentItem) {
                 return;
             }
             $(this).addClass('active');
             var that = $(this);
             setTimeout(function() { that.removeClass('active'); }, 400);
-            var item = store.getItem(currentItem);
-            $('#editItemField').val(item);
-            ffos.rightFrame.show();
+            store.getItem(currentItem.id, function(err, item) {
+                $('#editItemField').val(item.content);
+                ffos.rightFrame.show();
+            });
         });
 
         // Back to the main page.
@@ -147,9 +129,10 @@ define(function(require) {
         $('#editItem').click(function(e) {
             var val = $('#editItemField').val();
             if(val.trim() != "") {
-                store.setItem(currentItem, val);
-                refreshItems();
-                ffos.rightFrame.hide();
+                store.setItem(currentItem.id, currentItem.rev, val, function(err, response) {
+                    refreshItems();
+                    ffos.rightFrame.hide();
+                });
             } else {
                 ffos.showDialog("Can't save without description.");
             }
@@ -157,20 +140,26 @@ define(function(require) {
 
         // Deletes the current item.
         $('#delItem').click(function(e) {
-            store.delItem(currentItem);
-            refreshItems();
-            ffos.rightFrame.hide();
+            store.delItem(currentItem.id, currentItem.rev, function(err, response) {
+                refreshItems();
+                ffos.rightFrame.hide();
+            });
         });
 
         // Adds a new item.
         $('#addItem').click(function(e) {
             var val = $('#newItem').val();
             if(val.trim() != "") {
-                store.addItem(val);
-                $('#newItem').val('');
-                // Note that the items are refreshed while the form is shown.
-                refreshItems();
-                $('#addItemFrame').hideFrame();
+                store.addItem(val, function(err, result) {
+                    if(err) {
+                        console.log("The item failed to save.");
+                    } else {
+                        $('#newItem').val('');
+                        // Note that the items are refreshed while the form is shown.
+                        refreshItems();
+                        $('#addItemFrame').hideFrame();
+                    }
+                });
             } else {
                 ffos.showDialog("No TODO description entered.");
             }
@@ -186,8 +175,12 @@ define(function(require) {
             var that = this;
             dialog.show(function(button) {
                 if(button == 'yes') {
-                    store.delItem($(that).attr('id'))
-                    refreshItems();
+                    store.delItem(
+                        $(that).attr('itemid'),
+                        $(that).attr('itemrev'),
+                        function(err, response) {
+                            refreshItems();
+                    });
                 }
             });
         });

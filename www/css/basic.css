@@ -36,10 +36,12 @@ div.sidebar {
 /* Those forms are hidden at the start. */
 div.frame[pos="right"] {
     transform: translateX(100%);
+    -webkit-transform: translateX(100%);
 }
 
 div.sidebar[pos="drawer"] {
     transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
 }
 
 div.dialog {
@@ -57,31 +59,39 @@ div.dialog {
 
 body.showSide div.sidebar[pos="drawer"] {
     animation: leftToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 body.showSide div.frame[pos="main"] {
     animation: drawerToRight 0.4s forwards;
+    -webkit-transform: translateX(85%);
 }
 body.hideSide div.sidebar[pos="drawer"] {
     animation: currentToLeft 0.4s forwards;
+    -webkit-transform: translateX(-100%);
 }
 body.hideSide div.frame[pos="main"] {
     animation: rightToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 
 
 body.showRight div.frame[pos="right"] {
     z-index: 10;
     animation: rightToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 body.showRight div.frame[pos="main"] {
     animation: currentToLeft 0.4s forwards;
+    -webkit-transform: translateX(-100%);
 }
 
 body.hideRight div.frame[pos="right"] {
     animation: currentToRight 0.4s forwards;
+    -webkit-transform: translateX(100%);
 }
 body.hideRight div.frame[pos="main"] {
     animation: leftToCurrent 0.4s forwards;
+    -webkit-transform: translateX(0);
 }
 
 div.dialog.show {
@@ -356,5 +366,17 @@ ul.vmenu li a {
     text-decoration: none;
     font-size: 1.3rem;
     padding: 1rem 1rem 1rem 3rem;
+}
+
+.spinner {
+  position: absolute;
+  top: calc(50% - 1.5rem);
+  left: calc(50% - 1.5rem);
+  width: 2.9rem;
+  height: 2.9rem;
+  background: url(../img/spinner.png) no-repeat center center / 100%;
+  animation: 0.9s spinner-animation infinite steps(30);
+  border: none;
+  z-index: 100;
 }
 

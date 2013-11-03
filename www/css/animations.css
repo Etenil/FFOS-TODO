@@ -259,3 +259,12 @@
   100% { opacity: 0; }
 }
 
+@keyframes spinner-animation {
+  from {
+    transform: rotate(1deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

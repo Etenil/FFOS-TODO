@@ -10,6 +10,7 @@ ul.list {
 }
 
 ul.list li.placeholder {
+    display: none;
     position: absolute;
     top: 50%;
     bottom: 0;
@@ -24,14 +25,18 @@ ul.list li.placeholder p {
 
 ul.list li.item {
     width: 100%;
-    min-height: 5rem;
+    height: 5rem;
     border-bottom: 1px solid #4D4E53;
 }
 
 ul.list li.item p {
     margin: 0;
     padding: 1.5rem 3rem;
+    height: 1em;
     cursor: pointer;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 ul.list li.item p.active {
