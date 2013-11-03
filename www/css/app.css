@@ -39,7 +39,7 @@ ul.list li.item p {
     text-overflow: ellipsis;
 }
 
-ul.list li.item p.active {
+ul.list li.item.active {
     background-color: rgb(0, 138, 170);
 }
 

@@ -71,7 +71,10 @@ define(function(require) {
             // Migrating...
             for(var key in items) {
                 if(items[key].id != "_pouch_todos") {
-                    store.addItem(items[key].value);
+                    var item = {
+                        content: items[key].value,
+                    };
+                    store.addItem(item);
                     localstore.delItem(items[key].id);
                 }
             }
@@ -95,19 +98,22 @@ define(function(require) {
 
         // Click on item (to display/edit it)
         $('.item p').live('click', function(e) {
+            var self = $(this);
+            var li = self.closest('li');
             currentItem = {
-                id: $(this).attr('itemid'),
-                rev: $(this).attr('itemrev')
+                _id: self.attr('itemid'),
+                _rev: self.attr('itemrev')
             };
-            if(!currentItem) {
-                return;
-            }
-            $(this).addClass('active');
-            var that = $(this);
-            setTimeout(function() { that.removeClass('active'); }, 400);
-            store.getItem(currentItem.id, function(err, item) {
-                $('#editItemField').val(item.content);
-                ffos.rightFrame.show();
+            li.addClass('active');
+            setTimeout(function() { li.removeClass('active'); }, 400);
+            store.getItem(currentItem._id, function(err, item) {
+                if(err) {
+                    alert("Couldn't retrieve item.");
+                } else {
+                    currentItem = item;
+                    $('#editItemField').val(item.content);
+                    ffos.rightFrame.show();
+                }
             });
         });
 
@@ -127,9 +133,11 @@ define(function(require) {
 
         // Save a modified item.
         $('#editItem').click(function(e) {
-            var val = $('#editItemField').val();
-            if(val.trim() != "") {
-                store.setItem(currentItem.id, currentItem.rev, val, function(err, response) {
+            var item = currentItem;
+            item.content = $('#editItemField').val();
+
+            if(item.content.trim() != "") {
+                store.setItem(item, function(err, response) {
                     refreshItems();
                     ffos.rightFrame.hide();
                 });
@@ -148,9 +156,11 @@ define(function(require) {
 
         // Adds a new item.
         $('#addItem').click(function(e) {
-            var val = $('#newItem').val();
-            if(val.trim() != "") {
-                store.addItem(val, function(err, result) {
+            var item = {
+                content: $('#newItem').val(),
+            };
+            if(item.content.trim() != "") {
+                store.addItem(item, function(err, result) {
                     if(err) {
                         console.log("The item failed to save.");
                     } else {
@@ -172,13 +182,17 @@ define(function(require) {
                 "Are you sure that you want to delete this item?",
                 ffos.Dialog.BUTTONS_YESNO
             );
-            var that = this;
+            var self = $(this);
             dialog.show(function(button) {
                 if(button == 'yes') {
                     store.delItem(
-                        $(that).attr('itemid'),
-                        $(that).attr('itemrev'),
+                        self.attr('itemid'),
+                        self.attr('itemrev'),
                         function(err, response) {
+                            if(err) {
+                                console.log(err);
+                                return;
+                            }
                             refreshItems();
                     });
                 }
@@ -186,13 +200,26 @@ define(function(require) {
         });
 
         // Check an item.
-        $('.btnCheckItem').click(function(e) {
+        $('.btnCheckItem').live('click', function(e) {
             var self = $(this);
-            if(!self.hasClass('checked')) {
-                self.addClass('checked');
-            } else {
-                self.removeClass('checked');
-            }
+            var id = self.attr('itemid');
+
+            store.getItem(id, function(err, item) {
+                if(err) {
+                    alert("Couldn't change the item.");
+                    return;
+                }
+
+                item.checked = !self.hasClass('checked');
+
+                store.setItem(item, function(err, response) {
+                    if(item.checked) {
+                        self.addClass('checked');
+                    } else {
+                        self.removeClass('checked');
+                    }
+                });
+            });
        });
     });
 });

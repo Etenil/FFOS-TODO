@@ -24,7 +24,7 @@
     </div>
     <div class="frame" pos="main" id="mainFrame">
         <header>
-            <button class="main sidebar" id="btnSidebar"></button>
+            <!-- <button class="main sidebar" id="btnSidebar"></button> -->
             <ul class="actions">
                 <li class="install"><button id="btnInstall">Install</button></li>
                 <li><button id="btnAdd"></button></li>
@@ -34,6 +34,8 @@
 
         <div id="itemsList" class="body">
             <ul class="list">
+              <li class="spinner">
+              </li>
               <li class="placeholder">
                 <p>
                   Press the <strong>+</strong> button to add a TODO item.
@@ -42,10 +44,10 @@
             </ul>
             <!-- Template of a todo item. -->
             <script id="tpl-todo-item" type="text/x-mustache-template">
-              <li id="{{id}}" class="item">
-                <button id="{{id}}" class="btnDelItem"></button>
-                <button id="{{id}}" class="btnCheckItem"></button>
-                <p itemid="{{id}}">{{value}}</p>
+              <li id="{{_id}}" class="item">
+                <button itemid="{{_id}}" itemrev="{{_rev}}" class="btnDelItem"></button>
+                <button itemid="{{_id}}" itemrev="{{_rev}}" class="btnCheckItem {{#checked}}checked{{/checked}}"></button>
+                <p itemid="{{_id}}" itemrev="{{_rev}}">{{content}}</p>
               </li>
             </script>
         </div>
